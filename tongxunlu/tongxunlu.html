@@ -27,9 +27,9 @@
 			</div>
 			<div class="mui-card" style="margin-bottom: 35px;">
 				<ul class="mui-table-view">
-					<li class="mui-table-view-cell" id="china-map">
+					<li class="mui-table-view-cell" id="dingwei">
 						<a class="mui-navigate-right">
-							地图
+							定位展示
 						</a>
 					</li>
 					<li class="mui-table-view-cell">
@@ -38,8 +38,8 @@
 						</a>
 					</li>
 					<li class="mui-table-view-cell">
-						<a class="mui-navigate-right">
-							Item 3
+						<a class="mui-navigate-right" id="chinamap" >
+							china-map
 						</a>
 					</li>
 				</ul>
@@ -52,13 +52,14 @@
 			swipeBack:true //启用右滑关闭功能
 		});
 		mui.plusReady(function(){
-			document.getElementById("china-map").addEventListener("tap", function(){
+			document.getElementById("dingwei").addEventListener("tap", function(){
 				mui.openWindow({
-					url: "chinamap.html",
-					id: "chinamap",
+					url: "dingwei.html",
+					id: "dingwei",
 					waiting: {
 						autoShow: false
 					},
+					// 传值
 					extras:{
 						name: "testmap"
 					}
@@ -71,6 +72,18 @@
 					// styles: {
 					// 	top: "40px"
 					// },
+					waiting: {
+						autoShow: false
+					},
+					extras:{
+						name: "testValues"
+					}
+				});
+			});
+			document.getElementById("china-map").addEventListener("tap", function(){
+				mui.openWindow({
+					url: "china.html",
+					id: "chine-map",
 					waiting: {
 						autoShow: false
 					},
