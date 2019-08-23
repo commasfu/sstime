@@ -10,14 +10,14 @@
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<!--App自定义的css-->
 		<<!-- link rel="stylesheet" type="text/css" href="../css/app.css"/> -->
-		<!-- <link rel="stylesheet" type="text/css" href="../css/public/public.css"> -->
+		<link rel="stylesheet" type="text/css" href="../css/public/public.css">
 	</head>
 	<body>
 		<header class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 class="mui-title">值接收页</h1>
 		</header>
-		<div class="mui-content">
+		<div class="mui-content" style="padding-top: 30px;">
 			<div class="transfer-value-test" id="transfer-value-test"></div>
 		</div>
 	</body>
@@ -31,12 +31,12 @@
 			// alert(self.name)
 			var divid = document.getElementById("transfer-value-test");
 			var newP = document.createElement('div');
-			newP.innerHTML = '<div>' + self.name + '</div>';
+			newP.innerHTML = '<div class="test-context" style="top: 0px;">' + self.name + '</div>';
 			divid.appendChild(newP);
 		});
 		// var divid = document.getElementById("transfer-value-test");
-		// var newP = document.createElement('p');
-		// newP.innerHTML = '<p>' + 'self.name' + '</p>';
+		// var newP = document.createElement('div');
+		// newP.innerHTML = 'testAPI'
 		// divid.appendChild(newP);
 	</script>
 </html>
