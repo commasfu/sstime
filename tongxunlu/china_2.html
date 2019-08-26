@@ -1,198 +1,194 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
 	<head>
 		<meta charset="utf-8">
 		<title>Hello MUI</title>
-		<!-- 影响效果 -->
-		<!-- <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no"> -->
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<!--标准mui.css-->
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<link rel="stylesheet" type="text/css" href="../css/public/public.css">
 		<style>
-			#main{
-				width: 100%;
-				height: 900px;
-				overflow: hidden;
-				position: relative;
-				z-index: 1;
-			/*    background: url(../img/bg_.gif);*/
-			}
 			.chinaMap {
+				height: 525px;
 				margin: 0px;
 				padding: 0px;
 			}
 		</style>
 	</head>
-	<body style="background: #000">
-		<header class="mui-bar mui-bar-nav" style="height: 44px;">
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-			<h1 class="mui-title">炫酷地图</h1>
+			<h1 class="mui-title">地图</h1>
 		</header>
-		<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-		<div class="mui-content" style="padding-top: 47px;">
-			<div id="main" class="chinaMap" style="height:950px"></div>
+		<div class="mui-content" style="padding-top: 37px;>
+			<div class="mui-content-padded">
+				<div id="chinaMap" class="chinaMap"></div>
+			</div>
 		</div>
 	</body>
-	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=wvGuSDMA4xjj0t1dPqEtibPvXY5gyN4U"></script>
+	<script src="../js/mui.js"></script>
 	<!-- ECharts单文件引入 -->
-	<script src="../libs/js/xuanku/echarts.js"></script>
+	<script type="text/javascript" src="http://api.map.baidu.com/getscript?v=2.0&ak=DD279b2a90afdf0ae7a3796787a0742e"></script>
+	<script src="../libs/js/echarts-all.js" ></script>
+	<!-- <script src="../libs/js/china.js" ></script> -->
+	<script src="../libs/js/xuanku/data.js"></script>
 	<script src="../libs/js/xuanku/chinaMap.js"></script>
 	<script src="../libs/js/xuanku/BmapLib.js"></script>
-	<script src="../libs/js/xuanku/data.js"></script>
 	<script type="text/javascript">
-	
-		// 路径配置
-		require.config({
-			paths: {
-				echarts: 'http://echarts.baidu.com/build/dist'
-			}
-		});
-		require(
-			[
-				'echarts',
-				'echarts/chart/map'
-			],
-			function (ec) {
-				var myChart = ec.init(document.getElementById('main'));
-				option = {
-					backgroundColor: '#000',
-					color: [
-						'rgba(255, 255, 255, 0.8)',
-						'rgba(14, 241, 242, 0.8)',
-						'rgba(37, 140, 249, 0.8)'
-					],
-					title: {
-						text: '最高访客量',
-						subtext: '历史最高访客量：230987643',
-						x: 'center',
-						textStyle: {
-							color: '#fff'
+		mui.init()	
+		var optionMap = {
+				backgroundColor: '#FFFFFF',
+				title: {
+					text: '最高访客量',
+					subtext: '历史最高访客量：230987643',
+					x: 'center',
+					textStyle: {
+						color: '#fff'
+					}
+				},
+				legend: {
+					orient: 'vertical',
+					x: 'left',
+					data: ['强', '中', '弱'],
+					textStyle: {
+						color: '#fff'
+					}
+				},
+				toolbox: {
+					show: false
+				},
+				// tooltip : {
+				// 	trigger: 'item'
+				// },  						 
+				//配置属性
+				// series: [{
+				// 	name: '数据',
+				// 	type: 'map',
+				// 	mapType: 'china',
+				// 	roam: true,
+				// 	label: {
+				// 		normal: {
+				// 			show: true  //省份名称
+				// 		},
+				// 		emphasis: {
+				// 			show: false
+				// 		}
+				// 	},
+				// 	data:mydata  //数据
+				// }],
+				series: [{
+					name: '弱',
+					type: 'map',
+					mapType: 'china',
+					itemStyle: {
+						normal: {
+							borderColor: 'rgba(100,149,237,1)',
+							borderWidth: 1.5,
+							areaStyle: {
+								color: '#1b1b1b'
+							}
 						}
 					},
-					legend: {
-						orient: 'vertical',
-						x: 'left',
-						data: ['强', '中', '弱'],
-						textStyle: {
-							color: '#fff'
-						}
-					},
-					toolbox: {
-						show: false
-					},
-					series: [
-						{
-							name: '弱',
-							type: 'map',
-							mapType: 'china',
-							itemStyle: {
-								normal: {
-									borderColor: 'rgba(100,149,237,1)',
-									borderWidth: 1.5,
-									areaStyle: {
-										color: '#1b1b1b'
-									}
+					data: [],
+					markPoint: {
+						symbolSize: 2,
+						large: true,
+						effect: {
+							show: true
+						},
+						data: (function () {
+							var data = [];
+							var len = 3000;
+							var geoCoord
+							while (len--) {
+								geoCoord = placeList[len % placeList.length].geoCoord;
+								var x = geoCoord[0] + Math.random() * 1 - 0.5;
+								var y = geoCoord[1] + Math.random() * 2 - 0;
+								if (ptInPolygon(x, y)) {
+									data.push({
+										name: placeList[len % placeList.length].name + len,
+										value: 50,
+										geoCoord: [
+											x,
+											y
+										]
+									})
 								}
-							},
-							data: [],
-							markPoint: {
-								symbolSize: 2,
-								large: true,
-								effect: {
-									show: true
-								},
-								data: (function () {
-									var data = [];
-									var len = 3000;
-									var geoCoord
-									while (len--) {
-										geoCoord = placeList[len % placeList.length].geoCoord;
-										var x = geoCoord[0] + Math.random() * 1 - 0.5;
-										var y = geoCoord[1] + Math.random() * 2 - 0;
-										if (ptInPolygon(x, y)) {
-											data.push({
-												name: placeList[len % placeList.length].name + len,
-												value: 50,
-												geoCoord: [
-													x,
-													y
-												]
-											})
-										}
-									}
-									return data;
-								})()
 							}
+							return data;
+						})()
+					}
+				},
+				{
+					name: '中',
+					type: 'map',
+					mapType: 'china',
+					data: [],
+					markPoint: {
+						symbolSize: 3,
+						large: true,
+						effect: {
+							show: true
 						},
-						{
-							name: '中',
-							type: 'map',
-							mapType: 'china',
-							data: [],
-							markPoint: {
-								symbolSize: 3,
-								large: true,
-								effect: {
-									show: true
-								},
-								data: (function () {
-									var data = [];
-									var len = 1000;
-									var geoCoord
-									while (len--) {
-										geoCoord = placeList[len % placeList.length].geoCoord;
-										var x = geoCoord[0] + Math.random() * 5 - 2.5;
-										var y = geoCoord[1] + Math.random() * 3 - 1.5;
-										if (ptInPolygon(x, y)) {
-											data.push({
-												name: placeList[len % placeList.length].name + len,
-												value: 50,
-												geoCoord: [
-													x,
-													y
-												]
-											})
-										}
-									}
-									return data;
-								})()
+						data: (function () {
+							var data = [];
+							var len = 1000;
+							var geoCoord
+							while (len--) {
+								geoCoord = placeList[len % placeList.length].geoCoord;
+								var x = geoCoord[0] + Math.random() * 5 - 2.5;
+								var y = geoCoord[1] + Math.random() * 3 - 1.5;
+								if (ptInPolygon(x, y)) {
+									data.push({
+										name: placeList[len % placeList.length].name + len,
+										value: 50,
+										geoCoord: [
+											x,
+											y
+										]
+									})
+								}
 							}
+							return data;
+						})()
+					}
+				},
+				{
+					name: '强',
+					type: 'map',
+					mapType: 'china',
+					hoverable: false,
+					roam: true,
+					data: [],
+					markPoint: {
+						symbol: 'diamond',
+						symbolSize: 6,
+						large: true,
+						effect: {
+							show: true
 						},
-						{
-							name: '强',
-							type: 'map',
-							mapType: 'china',
-							hoverable: false,
-							roam: true,
-							data: [],
-							markPoint: {
-								symbol: 'diamond',
-								symbolSize: 6,
-								large: true,
-								effect: {
-									show: true
-								},
-								data: (function () {
-									var data = [];
-									var len = placeList.length;
-									while (len--) {
-										data.push({
-											name: placeList[len].name,
-											value: 90,
-											geoCoord: placeList[len].geoCoord
-										})
-									}
-									return data;
-								})()
+						data: (function () {
+							var data = [];
+							var len = placeList.length;
+							while (len--) {
+								data.push({
+									name: placeList[len].name,
+									value: 90,
+									geoCoord: placeList[len].geoCoord
+								})
 							}
-						}
-					]
-				};
-				myChart.setOption(option);
-			}
-		);
+							return data;
+						})()
+					}
+				}]
+			};
+		//初始化echarts实例
+		var myChart = echarts.init(document.getElementById('chinaMap'));
+		//使用制定的配置项和数据显示图表
+		myChart.setOption(optionMap);
 	
 		//判断点在多边形内还是外
 		function ptInPolygon(lng, lat) {
@@ -210,6 +206,6 @@
 				return false;
 			}
 		}
-	
 	</script>
+
 </html>

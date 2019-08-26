@@ -101,7 +101,21 @@
 			var myChart = echarts.init(document.getElementById('chinaMap'));
 	 
 			//使用制定的配置项和数据显示图表
-			myChart.setOption(optionMap);			
+			myChart.setOption(optionMap);	
+			
+			// 地图图钉功能
+			mui.plusReady(function(){
+				plus.geolocation.getCurrentPosition(MapPoint, function(e) {
+					mui.toast("error:" + e.message);
+					})
+			});
+			function MapPoint(position) {
+				var Lon = position.coords.longitude;   //获取经度
+				var Lat = position.coords.latitude;  //获取纬度
+				var address = "当前地址：" + position.address.province + "," + position.address.city + "," + position.address.district + "," + position.address.street + "," + position.address.streetNum;
+				alert("经度："+Lon + "," + "纬度：" + Lat + ";" + "地址信息：" + address);
+			}
+		
 	</script>
 
 </html>
