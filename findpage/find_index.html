@@ -10,7 +10,7 @@
 		<!--标准mui.css-->
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<!--App自定义的css-->
-		<link rel="stylesheet" type="text/css" href="../css/app.css"/>
+		<link rel='stylesheet' href="../css/mypage_css/myindex.css" />
 		<style>
 			.title{
 				margin: 20px 15px 7px;
@@ -21,86 +21,77 @@
 		</style>
 	</head>
 	<body>
-		<div class="mui-content">
-		    <div class="title">
-				card（圆角列表）
-			</div>
-			<div class="mui-card" style="margin-bottom: 35px;">
-				<ul class="mui-table-view">
-					<li class="mui-table-view-cell" id="dingwei">
-						<a class="mui-navigate-right">
-							定位展示
-						</a>
-					</li>
-					<li class="mui-table-view-cell">
-						<a class="mui-navigate-right" id="transfer-value">
-							传值测试
-						</a>
-					</li>
-					<li class="mui-table-view-cell">
-						<a class="mui-navigate-right" id="china-map" >
-							china-map
-						</a>
-					</li>
-					<li class="mui-table-view-cell">
-						<a class="mui-navigate-right" id="china-map-2" >
-							china-map-2
-						</a>
-					</li>
-				</ul>
+		<!--页面主结构开始-->
+		<div id="app" class="mui-views">
+			<div class="mui-view">
+				<div class="mui-navbar">
+				</div>
+				<div class="mui-pages">
+				</div>
 			</div>
 		</div>
+		<!--页面主结构结束-->
+		<!--单页面开始-->
+		<div id="setting" class="mui-page">
+			<!--页面标题栏开始-->                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+			<div class="mui-navbar-inner mui-bar mui-bar-nav">
+				<h1 class="mui-center mui-title">发现</h1>
+			</div>
+			<!--页面标题栏结束-->
+			<!--页面主内容区开始-->
+			<div class="mui-page-content">
+				<div class="mui-scroll-wrapper">
+					<div class="mui-scroll">
+						<ul class="mui-table-view mui-table-view-chevron" style="margin-top:0px">
+							<li class="mui-table-view-cell">
+								<a href="#account" class="mui-navigate-right">占位符A</a>
+							</li>
+						</ul>
+						<ul class="mui-table-view mui-table-view-chevron">
+							<li class="mui-table-view-cell">
+								<a href="#notifications" class="mui-navigate-right">占位符B</a>
+							</li>
+							<li class="mui-table-view-cell">
+								<a href="#privacy" class="mui-navigate-right">占位符C</a>
+							</li>
+							<li class="mui-table-view-cell">
+								<a href="#general" class="mui-navigate-right">占位符D</a>
+							</li>
+						</ul>
+						<ul class="mui-table-view mui-table-view-chevron">
+							<li class="mui-table-view-cell">
+								<a href="#about" class="mui-navigate-right" id="transfer-value">传值测试</a>
+							</li>
+						</ul>
+						<ul class="mui-table-view">
+							<li class="mui-table-view-cell">
+								<a>其他测试</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<!--页面主内容区结束-->
+		</div>
+		<!--单页面结束-->
 	</body>
 	<script src="../js/mui.min.js"></script>
+	<script src="../js/mui.view.js" ></script>
 	<script>
 		mui.init({
 			swipeBack:true //启用右滑关闭功能
 		});
+		var viewApi = mui('#app').view({
+			defaultPage: '#setting'
+		});
 		mui.plusReady(function(){
-			document.getElementById("dingwei").addEventListener("tap", function(){
-				mui.openWindow({
-					url: "dingwei.html",
-					id: "dingwei",
-					waiting: {
-						autoShow: false
-					},
-					// 传值
-					extras:{
-						name: "testmap"
-					}
-				});
-			});
 			document.getElementById("transfer-value").addEventListener("tap", function(){
 				mui.openWindow({
-					url: "second_page.html",
-					id: "second_page",
+					url: "transfer_test.html",
+					id: "transfer_test",
 					// styles: {
 					// 	top: "40px"
 					// },
-					waiting: {
-						autoShow: false
-					},
-					extras:{
-						name: "testValues"
-					}
-				});
-			});
-			document.getElementById("china-map").addEventListener("tap", function(){
-				mui.openWindow({
-					url: "china.html",
-					id: "chine-map",
-					waiting: {
-						autoShow: false
-					},
-					extras:{
-						name: "testValues"
-					}
-				});
-			});
-			document.getElementById("china-map-2").addEventListener("tap", function(){
-				mui.openWindow({
-					url: "china_2.html",
-					id: "chine-map-2",
 					waiting: {
 						autoShow: false
 					},
