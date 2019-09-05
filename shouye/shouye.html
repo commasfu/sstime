@@ -9,7 +9,6 @@
 		<!--标准mui.css-->
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<!--App自定义的css-->
-		<!-- <link rel="stylesheet" type="text/css" href="../css/app.css"/> -->
 		<style>
 			.shouyw-jinrishijian{
 				width: 100%;
@@ -42,7 +41,7 @@
 			<h1 class="mui-title">首页</h1>
 		</header>
 		<div class="mui-content">
-			<div class="shouye-chinaMap" id="shouye-chinaMap" ></div>
+			<div class="shouye-chinaMap" id="shouye-chinaMap" style="background-color: #000000;"></div>
 		</div>
 		<div class="shouyw-jinrishijian">
 			<p class="shouye-font" >
@@ -60,154 +59,6 @@
 	<script src="../libs/js/xuanku/BmapLib.js"></script>
 	<script type="text/javascript">
 		mui.init()	
-		var optionMap = {
-				backgroundColor: '#000000',
-				title: {
-					text: '最高访客量',
-					subtext: '历史最高访客量：230987643',
-					x: 'center',
-					textStyle: {
-						color: '#fff'
-					}
-				},
-				legend: {
-					orient: 'vertical',
-					x: 'left',
-					data: ['强', '中', '弱'],
-					textStyle: {
-						color: '#fff'
-					}
-				},
-				toolbox: {
-					show: false
-				},
-				series: [{
-					name: '弱',
-					type: 'map',
-					mapType: 'china',
-					itemStyle: {
-						normal: {
-							borderColor: 'rgba(100,149,237,1)',
-							borderWidth: 1.5,
-							areaStyle: {
-								color: '#1b1b1b'
-							}
-						}
-					},
-					data: [],
-					markPoint: {
-						symbolSize: 2,
-						large: true,
-						effect: {
-							show: true
-						},
-						data: (function () {
-							var data = [];
-							var len = 3000;
-							var geoCoord
-							while (len--) {
-								geoCoord = placeList[len % placeList.length].geoCoord;
-								var x = geoCoord[0] + Math.random() * 1 - 0.5;
-								var y = geoCoord[1] + Math.random() * 2 - 0;
-								if (ptInPolygon(x, y)) {
-									data.push({
-										name: placeList[len % placeList.length].name + len,
-										value: 50,
-										geoCoord: [
-											x,
-											y
-										]
-									})
-								}
-							}
-							return data;
-						})()
-					}
-				},
-				{
-					name: '中',
-					type: 'map',
-					mapType: 'china',
-					data: [],
-					markPoint: {
-						symbolSize: 3,
-						large: true,
-						effect: {
-							show: true
-						},
-						data: (function () {
-							var data = [];
-							var len = 1000;
-							var geoCoord
-							while (len--) {
-								geoCoord = placeList[len % placeList.length].geoCoord;
-								var x = geoCoord[0] + Math.random() * 5 - 2.5;
-								var y = geoCoord[1] + Math.random() * 3 - 1.5;
-								if (ptInPolygon(x, y)) {
-									data.push({
-										name: placeList[len % placeList.length].name + len,
-										value: 50,
-										geoCoord: [
-											x,
-											y
-										]
-									})
-								}
-							}
-							return data;
-						})()
-					}
-				},
-				{
-					name: '强',
-					type: 'map',
-					mapType: 'china',
-					hoverable: false,
-					roam: true,
-					data: [],
-					markPoint: {
-						symbol: 'diamond',
-						symbolSize: 6,
-						large: true,
-						effect: {
-							show: true
-						},
-						data: (function () {
-							var data = [];
-							var len = placeList.length;
-							while (len--) {
-								data.push({
-									name: placeList[len].name,
-									value: 90,
-									geoCoord: placeList[len].geoCoord
-								})
-							}
-							return data;
-						})()
-					}
-				}]
-			};
-		//初始化echarts实例
-		var myChart = echarts.init(document.getElementById('shouye-chinaMap'));
-		//使用制定的配置项和数据显示图表
-		myChart.setOption(optionMap);
-	
-		//判断点在多边形内还是外
-		function ptInPolygon(lng, lat) {
-			var pts = CreateChinaMapLine();
-	
-			var ply = new BMap.Polygon(pts);
-	
-			var pt = new BMap.Point(lng, lat);
-	
-			var result = BMapLib.GeoUtils.isPointInPolygon(pt, ply);
-	
-			if (result == true) {
-				return true;
-			} else {
-				return false;
-			}
-		}		
 	</script>
 </html>
 
